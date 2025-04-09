@@ -57,7 +57,6 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     email,
     phone,
     adConsent,
-    timestamp: new Date().toISOString(),
   }
   
   try {
