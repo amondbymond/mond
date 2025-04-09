@@ -60,7 +60,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
   }
   
   try {
-    const response = await fetch("https://3.16.196.163:5000/submit", {
+    const response = await fetch("http://3.16.196.163:5000/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
