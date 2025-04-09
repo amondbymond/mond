@@ -61,7 +61,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
   }
   
   try {
-    const response = await fetch("http://3.16.196.163/submit", {
+    const response = await fetch("http://3.16.196.163:80/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // 제출 성공 시 추가 동작...
     form.reset()
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
   
