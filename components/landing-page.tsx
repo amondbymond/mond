@@ -12,7 +12,7 @@ export default function LandingPage() {
   const [showModal, setShowModal] = useState(false)
   const { handlePhoneChange } = usePhoneFormat()
 
-  // 폼 제출 처리
+  /* 폼 제출 처리
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -42,8 +42,48 @@ export default function LandingPage() {
 
     // 성공 모달 표시
     setShowModal(true)
-  }
+  }*/
 
+  // 폼 제출 처리: Vercel API를 호출하여 서버에 저장
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+
+    const email = formData.get("email") as string
+    const phone = formData.get("phone") as string
+    const adConsent = formData.get("marketing") === "on"
+
+    const formDataObj = {
+      email,
+      phone,
+      adConsent,
+      timestamp: new Date().toISOString(),
+    }
+
+    try {
+      const response = await fetch("/api/submissions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataObj),
+      })
+
+      if (!response.ok) {
+        throw new Error("데이터 저장 중 오류가 발생했습니다.")
+      }
+
+      // 폼 초기화 및 성공 모달 표시
+      form.reset()
+      setShowModal(true)
+    } catch (error) {
+      console.error(error)
+      // 에러 처리 로직 추가 가능 (예: 사용자에게 에러 메시지 표시 등)
+    }
+  }
+  
   // 푸터로 스크롤 함수
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact-section")
